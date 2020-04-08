@@ -7,14 +7,14 @@ const DescriptionItems = [
 ];
 
 const DefaultRepeatingDays = {
-    "mo": false,
-    "tu": false,
-    "we": false,
-    "th": false,
-    "fr": false,
-    "sa": false,
-    "su": false,
-  };  
+  "mo": false,
+  "tu": false,
+  "we": false,
+  "th": false,
+  "fr": false,
+  "sa": false,
+  "su": false,
+};
 
 const getRandomArrayItem = (array) => {
   const randomIndex = getRandomIntegerNumber(0, array.length);

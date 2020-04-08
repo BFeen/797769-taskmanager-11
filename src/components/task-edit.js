@@ -112,7 +112,7 @@ export const createTaskEditTemplate = (task) => {
         <div class="card__repeat-days-inner">
           ${repeatingDaysMarkup}
         </div>
-      </fieldset>` 
+      </fieldset>`
       : ``
     }    
               </div>
