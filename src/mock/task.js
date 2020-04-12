@@ -7,29 +7,33 @@ const DescriptionItems = [
 ];
 
 const DefaultRepeatingDays = {
-  "mo": false,
-  "tu": false,
-  "we": false,
-  "th": false,
-  "fr": false,
-  "sa": false,
-  "su": false,
+  "MO": false,
+  "TU": false,
+  "WE": false,
+  "TH": false,
+  "FR": false,
+  "SA": false,
+  "SU": false,
 };
 
+const getRandomBool = () => {
+  return Math.random() > 0.5;
+}
+
 const getRandomArrayItem = (array) => {
-  const randomIndex = getRandomIntegerNumber(0, array.length);
+  const randomIndex = getRandomInteger(0, array.length);
 
   return array[randomIndex];
 };
 
-const getRandomIntegerNumber = (min, max) => {
+const getRandomInteger = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
 };
 
 const getRandomDate = () => {
   const targetDate = new Date();
-  const sign = Math.random() > 0.5 ? 1 : -1;
-  const diffValue = sign * getRandomIntegerNumber(0, 8);
+  const sign = getRandomBool() ? 1 : -1;
+  const diffValue = sign * getRandomInteger(0, 8);
 
   targetDate.setDate(targetDate.getDate() + diffValue);
 
@@ -37,21 +41,27 @@ const getRandomDate = () => {
 };
 
 const generateRepeatingDays = () => {
-  return Object.assign({}, DefaultRepeatingDays, {
-    "mo": Math.random() > 0.5,
-  });
+  return {  ...DefaultRepeatingDays,
+    "MO": getRandomBool(),
+    "TU": getRandomBool(),
+    "WE": getRandomBool(),
+    "TH": getRandomBool(),
+    "FR": getRandomBool(),
+    "SA": getRandomBool(),
+    "SU": getRandomBool(),
+  }
 };
 
 const generateTask = () => {
-  const dueDate = Math.random() > 0.5 ? null : getRandomDate();
+  const dueDate = getRandomBool() ? null : getRandomDate();
 
   return {
     description: getRandomArrayItem(DescriptionItems),
     dueDate,
     repeatingDays: dueDate ? DefaultRepeatingDays : generateRepeatingDays(),
     color: getRandomArrayItem(COLORS),
-    isArchive: Math.random() > 0.5,
-    isFavorite: Math.random() > 0.5,
+    isArchive: getRandomBool(),
+    isFavorite: getRandomBool(),
   };
 };
 
