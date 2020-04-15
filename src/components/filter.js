@@ -34,7 +34,7 @@ export default class Filter {
   }
 
   getTemplate() {
-    return createFilterTemplate(this._filters)
+    return createFilterTemplate(this._filters);
   }
 
   getElement() {

@@ -21,11 +21,10 @@ export default class Tasks {
       this._element = createElement(this.getTemplate());
     }
 
-    return this._element; 
+    return this._element;
   }
 
   removeElement() {
     this._element = null;
   }
 }
-      
