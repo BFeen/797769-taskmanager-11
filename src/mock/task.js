@@ -41,7 +41,7 @@ const getRandomDate = () => {
 };
 
 const generateRepeatingDays = () => {
-  return {  ...DefaultRepeatingDays,
+  return Object.assign({}, DefaultRepeatingDays, {
     "MO": getRandomBool(),
     "TU": getRandomBool(),
     "WE": getRandomBool(),
@@ -49,8 +49,8 @@ const generateRepeatingDays = () => {
     "FR": getRandomBool(),
     "SA": getRandomBool(),
     "SU": getRandomBool(),
-  }
-};
+  });
+}
 
 const generateTask = () => {
   const dueDate = getRandomBool() ? null : getRandomDate();

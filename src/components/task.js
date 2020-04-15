@@ -65,7 +65,6 @@ const createTaskTemplate = (task) => {
 export default class Task {
   constructor(task) {
     this._task = task;
-
     this._element = null;
   }
 

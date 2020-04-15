@@ -17,7 +17,7 @@ export default class Sorting {
   }
 
   getTemplate() {
-    return createSortTemplate();
+    return createSortingTemplate();
   }
 
   getElement() {
