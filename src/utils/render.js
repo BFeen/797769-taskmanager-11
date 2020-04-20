@@ -2,7 +2,7 @@ export const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
 };
-  
+
 export const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
@@ -13,11 +13,11 @@ export const createElement = (template) => {
 export const render = (container, component, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
-    container.prepend(component.getElement());
-    break;
+      container.prepend(component.getElement());
+      break;
     case RenderPosition.BEFOREEND:
-    container.append(component.getElement());
-    break;
+      container.append(component.getElement());
+      break;
   }
 };
 
@@ -36,4 +36,4 @@ export const replace = (newComponent, oldComponent) => {
 export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
-}
+};
