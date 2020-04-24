@@ -1,10 +1,10 @@
 import LoadMoreButtonComponent from "../components/load-more-button.js";
 import NoTasksComponent from "../components/no-tasks.js";
-import SortingComponent from "../components/sorting.js";
+import SortingComponent, {SortType} from "../components/sorting.js";
 import TaskComponent from "../components/task.js";
 import TaskEditComponent from "../components/task-edit.js";
 import TasksComponent from "../components/tasks.js";
-import {render, replace, remove, RenderPosition} from "../utils/render.js";
+import {render, remove, replace, RenderPosition} from "../utils/render.js";
 
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
@@ -45,6 +45,26 @@ const renderTask = (taskListElement, task) => {
   render(taskListElement, taskComponent, RenderPosition.BEFOREEND);
 };
 
+const getSortedTasks = (tasks, sortType, from, to) => {
+  let sortedTasks = [];
+  const showingTasks = tasks.slice();
+
+  switch (sortType) {
+    case SortType.DATE_UP:
+      sortedTasks = showingTasks.sort((a, b) => a.dueDate - b.dueDate);
+      break;
+    case SortType.DATE_DOWN:
+      sortedTasks = showingTasks.sort((a, b) => b.dueDate - a.dueDate);
+      break;
+    case SortType.DEFAULT:
+      sortedTasks = showingTasks;
+      break;
+  }
+
+  return sortedTasks.slice(from, to);
+};
+
+
 export default class BoardController {
   constructor(container) {
     this._container = container;
@@ -56,6 +76,26 @@ export default class BoardController {
   }
 
   render(tasks) {
+    const renderLoadMoreButton = () => {
+      if (showingTasksCount >= tasks.length) {
+        return;
+      }
+
+      render(container, this._loadMoreButtonComponent, RenderPosition.BEFOREEND);
+
+      this._loadMoreButtonComponent.setClickHandler(() => {
+        const prevTasksCount = showingTasksCount;
+        showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
+
+        tasks.slice(prevTasksCount, showingTasksCount)
+          .forEach((task) => renderTask(taskListElement, task));
+
+        if (showingTasksCount >= tasks.length) {
+          remove(this._loadMoreButtonComponent);
+        }
+      });
+    };
+
     const container = this._container.getElement();
     const isAllTasksArchived = tasks.every((task) => task.isArchive);
 
@@ -75,18 +115,21 @@ export default class BoardController {
         renderTask(taskListElement, task);
       });
 
-    render(container, this._loadMoreButtonComponent, RenderPosition.BEFOREEND);
+    renderLoadMoreButton();
 
-    this._loadMoreButtonComponent.setClickHandler(() => {
-      const prevTasksCount = showingTasksCount;
-      showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
+    this._sortingComponent.setSortTypeChangeHandler((sortType) => {
+      showingTasksCount = SHOWING_TASKS_COUNT_BY_BUTTON;
 
-      tasks.slice(prevTasksCount, showingTasksCount)
-        .forEach((task) => renderTask(taskListElement, task));
+      const sortedTasks = getSortedTasks(tasks, sortType, 0, showingTasksCount);
 
-      if (showingTasksCount >= tasks.length) {
-        remove(this._loadMoreButtonComponent);
-      }
+      taskListElement.innerHTML = ``;
+
+      sortedTasks.slice(0, showingTasksCount)
+        .forEach((task) => {
+          renderTask(taskListElement, task);
+        });
+
+      renderLoadMoreButton();
     });
   }
 }
