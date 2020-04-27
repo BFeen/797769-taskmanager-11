@@ -1,10 +1,10 @@
-const castTimeFormat = (value) => {
-  return String(value).padStart(2, `0`);
-};
+import moment from "moment";
+
 
 export const formatTime = (date) => {
-  const hours = castTimeFormat(date.getHours());
-  const minutes = castTimeFormat(date.getMinutes());
+  return moment(date).format(`hh:mm`);
+};
 
-  return `${hours}:${minutes}`;
+export const formatDate = (date) => {
+  return moment(date).format(`DD MMMM`);
 };
