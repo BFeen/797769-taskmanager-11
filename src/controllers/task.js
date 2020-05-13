@@ -3,6 +3,7 @@ import TaskEditComponent from "../components/task-edit.js";
 import {render, replace, remove, RenderPosition} from "../utils/render.js";
 import {COLOR} from "../const.js";
 
+
 export const Mode = {
   ADDING: `adding`,
   DEFAULT: `default`,
