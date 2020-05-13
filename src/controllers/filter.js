@@ -24,7 +24,7 @@ export default class FilterController {
     const filters = Object.values(FilterType).map((filterType) => {
       return {
         name: filterType,
-        count: getTasksByFilter,
+        count: getTasksByFilter(allTasks, filterType).length,
         checked: filterType === this._activeFilterType,
       }
     });
@@ -41,7 +41,6 @@ export default class FilterController {
   }
 
   _onFilterChange(filterType) {
-    this._tasksModel.setFilter(filterType);
     this._activeFilterType = filterType;
   }
 
