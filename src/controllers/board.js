@@ -2,7 +2,7 @@ import LoadMoreButtonComponent from "../components/load-more-button.js";
 import NoTasksComponent from "../components/no-tasks.js";
 import SortingComponent, {SortType} from "../components/sorting.js";
 import TasksComponent from "../components/tasks.js";
-import TaskController, {Mode as TaskControllerMode, EmptyTask}  from "./task.js";
+import TaskController, {Mode as TaskControllerMode, EmptyTask} from "./task.js";
 import {render, remove, RenderPosition} from "../utils/render.js";
 
 
@@ -42,7 +42,7 @@ export default class BoardController {
   constructor(container, tasksModel) {
     this._container = container;
     this._tasksModel = tasksModel;
-    
+
     this._showedTaskControllers = [];
     this._showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
     this._noTasksComponent = new NoTasksComponent();
@@ -140,7 +140,7 @@ export default class BoardController {
 
         this._showedTaskControllers = [].concat(taskController, this._showedTaskControllers);
         this._showingTasksCount = this._showedTaskControllers.length;
-      
+
         this._renderLoadMoreButton();
       }
     } else if (newData === null) {
@@ -148,9 +148,9 @@ export default class BoardController {
       this._updateTasks(this._showingTasksCount);
     } else {
       const isSuccess = this._tasksModel.updateTask(oldData.id, newData);
-      
+
       if (isSuccess) {
-        taskController.rener(newData);
+        taskController.render(newData);
       }
     }
   }
@@ -176,7 +176,7 @@ export default class BoardController {
   _onLoadMoreButtonClick() {
     const prevTasksCount = this._showingTasksCount;
     const tasks = this._tasksModel.getTasks();
-    
+
     this._showingTasksCount = this._showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
 
     const sortedTasks = getSortedTasks(tasks, this._sortingComponent.getSortType(), prevTasksCount, this._showingTasksCount);

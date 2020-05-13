@@ -29,7 +29,7 @@ render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 const boardController = new BoardController(boardComponent, tasksModel);
 boardController.render(tasks);
 
-siteMenuComponent.setOnChange((MenuItem) => {
+siteMenuComponent.setOnChange((menuItem) => {
   switch (menuItem) {
     case MenuItem.NEW_TASK:
       siteMenuComponent.setActiveItem(MenuItem.TASKS);

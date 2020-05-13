@@ -12,7 +12,7 @@ const MAX_DESCRIPTION_LENGTH = 140;
 const isAllowableDescriptionLength = (description) => {
   const length = description.length;
 
-  return length >= MIN_DESCRIPTION_LENGTH && 
+  return length >= MIN_DESCRIPTION_LENGTH &&
     length <= MAX_DESCRIPTION_LENGTH;
 };
 
@@ -67,7 +67,7 @@ const createTaskEditTemplate = (task, options = {}) => {
 
   const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
   const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
-    (isRepeatingTask && !isRepeating(activeRepeatingDays)) || 
+    (isRepeatingTask && !isRepeating(activeRepeatingDays)) ||
     !isAllowableDescriptionLength(description);
 
   const date = (isDateShowing && dueDate) ? formatDate(dueDate) : ``;
@@ -189,7 +189,6 @@ export default class TaskEdit extends AbstractSmartComponent {
     if (this._flatpickr) {
       this._flatpickr.destroy();
       this._flatpickr = null;
-
     }
 
     super.removeElement();
@@ -235,7 +234,7 @@ export default class TaskEdit extends AbstractSmartComponent {
   setDeleteButtonClickHandler(handler) {
     this.getElement().querySelector(`.card__delete`)
       .addEventListener(`click`, handler);
-    
+
     this._deleteButtonClickHandler = handler;
   }
 

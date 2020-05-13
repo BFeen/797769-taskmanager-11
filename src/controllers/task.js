@@ -131,7 +131,7 @@ export default class TaskController {
       if (this._mode === Mode.ADDING) {
         this._onDataChange(this, EmptyTask, null);
       }
-      
+
       this._replaceEditToTask();
       document.removeEventListener(`keydown`, this._onEscKeyDown);
     }
