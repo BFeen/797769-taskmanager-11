@@ -42,8 +42,7 @@ export default class BoardController {
   constructor(container, tasksModel) {
     this._container = container;
     this._tasksModel = tasksModel;
-
-    this._tasks = [];
+    
     this._showedTaskControllers = [];
     this._showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
     this._noTasksComponent = new NoTasksComponent();
